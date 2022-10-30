@@ -7,19 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B362009290E68DA00E48E23 /* CreatureDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B362008290E68DA00E48E23 /* CreatureDetailViewModel.swift */; };
 		0BB16FDF290BD5A90013DAA7 /* CatchEmAllApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FDE290BD5A90013DAA7 /* CatchEmAllApp.swift */; };
-		0BB16FE1290BD5A90013DAA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FE0290BD5A90013DAA7 /* ContentView.swift */; };
+		0BB16FE1290BD5A90013DAA7 /* CreatureListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FE0290BD5A90013DAA7 /* CreatureListView.swift */; };
 		0BB16FE3290BD5AB0013DAA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB16FE2290BD5AB0013DAA7 /* Assets.xcassets */; };
 		0BB16FE7290BD5AB0013DAA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB16FE6290BD5AB0013DAA7 /* Preview Assets.xcassets */; };
+		0BB16FEE290BDC2D0013DAA7 /* CreaturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FED290BDC2D0013DAA7 /* CreaturesViewModel.swift */; };
+		0BB16FF0290C47330013DAA7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FEF290C47330013DAA7 /* DetailView.swift */; };
+		0BB16FF2290C512F0013DAA7 /* Creature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB16FF1290C512F0013DAA7 /* Creature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B362008290E68DA00E48E23 /* CreatureDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatureDetailViewModel.swift; sourceTree = "<group>"; };
+		0B7556CE290D0D2D002F0561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0BB16FDB290BD5A90013DAA7 /* CatchEmAll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchEmAll.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB16FDE290BD5A90013DAA7 /* CatchEmAllApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchEmAllApp.swift; sourceTree = "<group>"; };
-		0BB16FE0290BD5A90013DAA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0BB16FE0290BD5A90013DAA7 /* CreatureListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatureListView.swift; sourceTree = "<group>"; };
 		0BB16FE2290BD5AB0013DAA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BB16FE4290BD5AB0013DAA7 /* CatchEmAll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CatchEmAll.entitlements; sourceTree = "<group>"; };
 		0BB16FE6290BD5AB0013DAA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0BB16FED290BDC2D0013DAA7 /* CreaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreaturesViewModel.swift; sourceTree = "<group>"; };
+		0BB16FEF290C47330013DAA7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		0BB16FF1290C512F0013DAA7 /* Creature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Creature.swift; path = "../../../../../Google Drive/Creature.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +61,13 @@
 		0BB16FDD290BD5A90013DAA7 /* CatchEmAll */ = {
 			isa = PBXGroup;
 			children = (
+				0B7556CE290D0D2D002F0561 /* Info.plist */,
 				0BB16FDE290BD5A90013DAA7 /* CatchEmAllApp.swift */,
-				0BB16FE0290BD5A90013DAA7 /* ContentView.swift */,
+				0BB16FF1290C512F0013DAA7 /* Creature.swift */,
+				0BB16FED290BDC2D0013DAA7 /* CreaturesViewModel.swift */,
+				0B362008290E68DA00E48E23 /* CreatureDetailViewModel.swift */,
+				0BB16FE0290BD5A90013DAA7 /* CreatureListView.swift */,
+				0BB16FEF290C47330013DAA7 /* DetailView.swift */,
 				0BB16FE2290BD5AB0013DAA7 /* Assets.xcassets */,
 				0BB16FE4290BD5AB0013DAA7 /* CatchEmAll.entitlements */,
 				0BB16FE5290BD5AB0013DAA7 /* Preview Content */,
@@ -139,7 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB16FE1290BD5A90013DAA7 /* ContentView.swift in Sources */,
+				0BB16FEE290BDC2D0013DAA7 /* CreaturesViewModel.swift in Sources */,
+				0BB16FF0290C47330013DAA7 /* DetailView.swift in Sources */,
+				0BB16FE1290BD5A90013DAA7 /* CreatureListView.swift in Sources */,
+				0BB16FF2290C512F0013DAA7 /* Creature.swift in Sources */,
+				0B362009290E68DA00E48E23 /* CreatureDetailViewModel.swift in Sources */,
 				0BB16FDF290BD5A90013DAA7 /* CatchEmAllApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +287,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchEmAll/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -307,6 +328,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchEmAll/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
