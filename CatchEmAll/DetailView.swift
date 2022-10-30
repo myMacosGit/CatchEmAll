@@ -25,20 +25,45 @@ struct DetailView: View {
                 .padding(.bottom)
             
             HStack {
-                Image(systemName: "figure.run.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .backgroundStyle(.white)
-                    .frame(maxHeight: 96)
-                 //   .cornerRadius(16)
-                 //   .shadow(radius:8, x:5, y:5)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray.opacity(0.5), lineWidth: 1)
-                    }
-                    .padding(.trailing)
+                AsyncImage(url: URL(string: creatureDetailVM.imageURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .background(.white)
+                        .frame(maxHeight: 96)
+                        .cornerRadius(16)
+                        .shadow(radius:8, x:5, y:5)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(.gray.opacity(0.5), lineWidth: 1)
+                        }
+                        .padding(.trailing)
+                } placeholder: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.clear)
+                    .frame(maxWidth: 96, maxHeight: 96)
+                    
+                }
                 
-                VStack (alignment: .leading {
+                
+                
+                
+                
+                
+                //                Image(systemName: "figure.run.circle")
+                //                    .resizable()
+                //                    .scaledToFit()
+                //                    .backgroundStyle(.white)
+                //                    .frame(maxHeight: 96)
+                //                 //   .cornerRadius(16)
+                //                 //   .shadow(radius:8, x:5, y:5)
+                //                    .overlay {
+                //                        RoundedRectangle(cornerRadius: 16)
+                //                            .stroke(.gray.opacity(0.5), lineWidth: 1)
+                //                    }
+                //                    .padding(.trailing)
+                
+                VStack (alignment: .leading) {
                     HStack (alignment: .top) {
                         Text("Height:")
                             .font(.title2)
@@ -50,7 +75,7 @@ struct DetailView: View {
                             .bold()
                         
                     } // HStack
-
+                    
                     HStack (alignment: .top) {
                         Text("Weight:")
                             .font(.title2)
@@ -79,6 +104,6 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(creature: Creature(name: "bulbasaur",
-                    url: "https://pokeapi.co/api/v2/ability/65/"))
+                                      url: "https://pokeapi.co/api/v2/ability/65/"))
     }
 }
