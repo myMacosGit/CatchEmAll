@@ -12,6 +12,7 @@ struct CatchEmAllApp: App {
     var body: some Scene {
         WindowGroup {
             CreatureListView()
+            let _ = print("----- call: CreatureListView")
         }
     }
 }

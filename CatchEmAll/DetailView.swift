@@ -9,10 +9,18 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject var creatureDetailVM = CreatureDetailViewModel()
+    {
+        willSet(myNewValue) {
+            print("---- New creatureDetailVM is \(myNewValue)")
+        }
+    }
+
+
     
     var creature: Creature
     
     var body: some View {
+        let _ = print ("----- Detail View:creatureDetailVM")
         VStack(alignment: .leading, spacing: 3) {
             Text(creature.name.capitalized)
                 .font(Font.custom("Avenir Net Condensed", size: 60))
@@ -44,12 +52,6 @@ struct DetailView: View {
                     .frame(maxWidth: 96, maxHeight: 96)
                     
                 }
-                
-                
-                
-                
-                
-                
                 //                Image(systemName: "figure.run.circle")
                 //                    .resizable()
                 //                    .scaledToFit()
@@ -94,8 +96,13 @@ struct DetailView: View {
         } // VStack
         .padding()
         .task  {
+            let _ = print("creatureDetailVM:task 1")
+
+            let _ = print ("---- creatureDetailVM  url \(creature.url)")
+
             creatureDetailVM.urlString = creature.url
             await creatureDetailVM.GetData()
+            let _ = print("creatureDetailVM:task 2")
         }
         
     } // body

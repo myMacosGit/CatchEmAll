@@ -24,11 +24,17 @@ class CreatureDetailViewModel : ObservableObject {
     @Published var height = 0.0
     @Published var weight = 0.0
     @Published var imageURL = ""
+    {
+        willSet(myNewValue) {
+            print("---- New CreatureDetailViewModel:imageURL is \(myNewValue)")
+        }
+    }
+
 
     
     func GetData () async {
         
-        print(" We are accessing the url \(urlString)")
+        print("----- We are accessing the CreatureDetailViewModel:url \(urlString) CreatureDetailViewModel")
         
         // Create a URL
         // convert urlString to a special URL type

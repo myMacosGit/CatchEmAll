@@ -38,22 +38,22 @@ class CreaturesViewModel : ObservableObject {
     
     private struct Returned: Codable {
         var count: Int
-        var next: String // TODO: want to change this to a option
+        var next: String? // TODO: want to change this to a option
         var results: [Creature]
     }
     
     @Published var urlString = "https://pokeapi.co/api/v2/pokemon/"
     @Published var count = 0
     @Published var creaturesArray: [Creature] = []
-    /* {
+    {
         willSet(myNewValue) {
-            print("---- New name is \(myNewValue)")
+            print("---- New CreaturesViewModel:creaturesArray is \(myNewValue)")
         }
-    } */
-    
+    }
+        
     func GetData () async {
         
-        print(" We are accessing the url \(urlString)")
+        print(" We are accessing the CreaturesViewModel:url \(urlString)")
         
         // Create a URL
         // convert urlString to a special URL type
@@ -87,12 +87,12 @@ class CreaturesViewModel : ObservableObject {
             //  We are accessing the url https://pokeapi.co/api/v2/pokemon/
             // JSON returned! count: 1154, next https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20
             
-            print ("JSON returned! count: \(returned.count), next \(returned.next)")
+            print ("JSON returned! count: \(returned.count), next \(returned.next ?? "")  ")
             // Try to decode JSON data into our data structure
             
             self.count = returned.count
-            self.urlString = returned.next
-            self.creaturesArray = returned.results
+            self.urlString = returned.next ?? ""
+            self.creaturesArray = self.creaturesArray + returned.results
             
             
         } catch {
