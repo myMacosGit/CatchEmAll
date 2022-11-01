@@ -38,10 +38,10 @@ class CreaturesViewModel : ObservableObject {
     
     private struct Returned: Codable {
         var count: Int
-        var next: String? // TODO: want to change this to a option
+        var next: String?  
         var results: [Creature]
     }
-    
+    @Published var isLoading = false
     @Published var urlString = "https://pokeapi.co/api/v2/pokemon/"
     @Published var count = 0
     @Published var creaturesArray: [Creature] = []
@@ -52,17 +52,19 @@ class CreaturesViewModel : ObservableObject {
     }
         
     func GetData () async {
-        
         print(" We are accessing the CreaturesViewModel:url \(urlString)")
+        isLoading = true
         
         // Create a URL
         // convert urlString to a special URL type
         guard let url = URL(string: urlString) else {
             print ("----- ERROR: Could not create a URL from \(urlString)")
+            isLoading = false
             return
         }
         
         do {
+    
             // data, response
             let (data, _) = try await URLSession.shared.data(from: url)
             
@@ -82,6 +84,7 @@ class CreaturesViewModel : ObservableObject {
              */
             guard let returned = try? JSONDecoder().decode(Returned.self, from: data) else {
                 print ("----- JSON ERROR: Could not decode returned JSON data")
+                isLoading = false
                 return
             }
             //  We are accessing the url https://pokeapi.co/api/v2/pokemon/
@@ -93,10 +96,12 @@ class CreaturesViewModel : ObservableObject {
             self.count = returned.count
             self.urlString = returned.next ?? ""
             self.creaturesArray = self.creaturesArray + returned.results
-            
+            isLoading = false
             
         } catch {
             print ("ERROR: Could not use URL at \(urlString) to get data and response")
+            isLoading = false
+            
         } // do
         
     } // GetData

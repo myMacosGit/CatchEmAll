@@ -21,44 +21,59 @@ struct CreatureListView: View {
     var body: some View {
         let _ = print ("----- NavigationStack")
         NavigationStack {
-            
-            //            List (creaturesVM.creaturesArray, id: \.self, rowContent:  {  // can clean up later
-            //                creature in
-            //                Text(creature.name)
-            //                    .font(.title2)
-            //        }) // List
-            
-            // Shorter form, trailing closure
-            
-            List(0..<creaturesVM.creaturesArray.count, id: \.self) { index in
-                LazyVStack {
-                    NavigationLink {
-                        let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
-                        DetailView(creature: creaturesVM.creaturesArray[index])
-                    } // NaigationLink
-                label: {
-                    Text("\(index+1).\(creaturesVM.creaturesArray[index].name.capitalized)")
-                        .font(.title2)
-                } // NaigationLink.label
-                } // LazyVStack
-                .onAppear {
-                    if let lastCreature =
-                        creaturesVM.creaturesArray.last {
-                        if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
-                            Task {
-                                await creaturesVM.GetData()
-                            }
+            ZStack {
+                List(0..<creaturesVM.creaturesArray.count, id: \.self) { index in
+                    LazyVStack {
+                        NavigationLink {
+                            let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
+                            DetailView(creature: creaturesVM.creaturesArray[index])
+                        } // NaigationLink
+                    label: {
+                        Text("\(index+1).\(creaturesVM.creaturesArray[index].name.capitalized)")
+                            .font(.title2)
+
+                    } // NaigationLink.label
+                    } // LazyVStack
+                    .onAppear {
+                        // Check if last entry in creatures array is not nil and
+                        // that the last entry has a valid url
+                        if let lastCreature =
+                            
+                            /*
+                             If the collection is empty, the value of this property is nil.
+                             let numbers = [10, 20, 30, 40, 50]
+                             if let lastNumber = numbers.last {
+                                 print(lastNumber)
+                             }
+                             // Prints "50"
+                             */
+                            
+                            creaturesVM.creaturesArray.last {
+                            if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
+                                Task {
+                                    let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+                                    await creaturesVM.GetData()
+                                } // Task
+                            } // if
+        
                         } // if
-                    } // if
-                } // onAppear
-                .listStyle(.plain)
-                .navigationTitle("Pokemon")
-                .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
-                    }
-                } // toolbar
-            } // List
+                    } // onAppear
+                    .listStyle(.plain)
+                    .navigationTitle("Pokemon")
+                    .toolbar {
+                        ToolbarItem(placement: .bottomBar) {
+                            Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
+                        }
+                    } // toolbar
+                } // List
+
+                if creaturesVM.isLoading {
+                    ProgressView()
+                        .tint(.red)
+                        .scaleEffect(4)
+                }
+
+            }  // ZStack
         } // NavigationStack
         
         .task {
