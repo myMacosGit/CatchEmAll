@@ -51,7 +51,7 @@ class CreaturesViewModel : ObservableObject {
         }
     }
         
-    func GetData () async {
+    func getData () async {
         print(" We are accessing the CreaturesViewModel:url \(urlString)")
         isLoading = true
         
@@ -104,12 +104,13 @@ class CreaturesViewModel : ObservableObject {
             
         } // do
         
-    } // GetData
+    } // getData
     
+    // About 57 calls
     func loadAll() async {
         guard urlString.hasPrefix("http") else { return }
-        await GetData()
+        await getData()
         await loadAll() // call loadAll again until next is null
-    }
+    } // loadAll
     
 } // CreaturesViewModel

@@ -19,13 +19,13 @@ struct CreatureListView: View {
     }
     
     var body: some View {
-        let _ = print ("----- NavigationStack")
+        //let _ = print ("----- NavigationStack")
         NavigationStack {
             ZStack {
                 List(0..<creaturesVM.creaturesArray.count, id: \.self) { index in
                     LazyVStack {
                         NavigationLink {
-                            let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
+                            //let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
                             DetailView(creature: creaturesVM.creaturesArray[index])
                         } // NaigationLink
                     label: {
@@ -51,8 +51,8 @@ struct CreatureListView: View {
                             creaturesVM.creaturesArray.last {
                             if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
                                 Task {
-                                    let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
-                                    await creaturesVM.GetData()
+                                    //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+                                    await creaturesVM.getData()
                                 } // Task
                             } // if
         
@@ -88,9 +88,9 @@ struct CreatureListView: View {
         } // NavigationStack
         
         .task {
-            let _ = print("CreatureListView:task 1")
-            await creaturesVM.GetData()
-            let _ = print("CreatureListView:task 2")
+            //let _ = print("CreatureListView:task 1")
+            await creaturesVM.getData()
+            //let _ = print("CreatureListView:task 2")
         } // task
     } // body
 } // View
