@@ -57,15 +57,26 @@ struct CreatureListView: View {
                             } // if
         
                         } // if
-                    } // onAppear
-                    .listStyle(.plain)
-                    .navigationTitle("Pokemon")
-                    .toolbar {
-                        ToolbarItem(placement: .bottomBar) {
-                            Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
-                        }
-                    } // toolbar
+                    }
                 } // List
+                .listStyle(.plain)
+                .navigationTitle("Pokemon")
+                .toolbar {
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Load All") {
+                            Task {
+                                await creaturesVM.loadAll()
+                            }
+                        }
+                    } // toolbaritem
+
+                    ToolbarItem(placement: .status) {
+                        Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
+                    } // toolbaritem
+
+
+                } // toolbar
 
                 if creaturesVM.isLoading {
                     ProgressView()
