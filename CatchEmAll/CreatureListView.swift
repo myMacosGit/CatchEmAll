@@ -12,6 +12,9 @@ struct CreatureListView: View {
     
 
     @StateObject var creaturesVM = CreaturesViewModel()
+    @State private var searchText = ""
+    
+    
     {
         willSet(myNewValue) {
             print("---- New CreaturesViewModel is \(myNewValue)")
@@ -22,42 +25,45 @@ struct CreatureListView: View {
         //let _ = print ("----- NavigationStack")
         NavigationStack {
             ZStack {
-                List(0..<creaturesVM.creaturesArray.count, id: \.self) { index in
+                List(searchResults) { creature in
                     LazyVStack {
                         NavigationLink {
                             //let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
-                            DetailView(creature: creaturesVM.creaturesArray[index])
+                            DetailView(creature: creature)
                         } // NaigationLink
                     label: {
-                        Text("\(index+1).\(creaturesVM.creaturesArray[index].name.capitalized)")
+                        Text(creature.name.capitalized)
                             .font(.title2)
 
                     } // NaigationLink.label
                     } // LazyVStack
                     .onAppear {
-                        // Check if last entry in creatures array is not nil and
-                        // that the last entry has a valid url
-                        if let lastCreature =
-                            
-                            /*
-                             If the collection is empty, the value of this property is nil.
-                             let numbers = [10, 20, 30, 40, 50]
-                             if let lastNumber = numbers.last {
-                                 print(lastNumber)
-                             }
-                             // Prints "50"
-                             */
-                            
-                            creaturesVM.creaturesArray.last {
-                            if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
-                                Task {
-                                    //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
-                                    await creaturesVM.getData()
-                                } // Task
-                            } // if
-        
-                        } // if
-                    }
+                        
+                        Task {
+                            await creaturesVM.loadNextIfNeeded(creature: creature)
+                        }
+//                        // Check if last entry in creatures array is not nil and
+//                        // that the last entry has a valid url
+//                        if let lastCreature =
+//
+//                            /*
+//                             If the collection is empty, the value of this property is nil.
+//                             let numbers = [10, 20, 30, 40, 50]
+//                             if let lastNumber = numbers.last {
+//                                 print(lastNumber)
+//                             }
+//                             // Prints "50"
+//                             */
+//
+//                            creaturesVM.creaturesArray.last {
+//                            if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
+//                                Task {
+//                                    //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+//                                    await creaturesVM.getData()
+//                                } // Task
+//                            } // if
+//                        } // if
+                  } // onAppear
                 } // List
                 .listStyle(.plain)
                 .navigationTitle("Pokemon")
@@ -74,10 +80,10 @@ struct CreatureListView: View {
                     ToolbarItem(placement: .status) {
                         Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
                     } // toolbaritem
-
-
                 } // toolbar
 
+                .searchable(text: $searchText)
+                
                 if creaturesVM.isLoading {
                     ProgressView()
                         .tint(.red)
@@ -93,6 +99,16 @@ struct CreatureListView: View {
             //let _ = print("CreatureListView:task 2")
         } // task
     } // body
+    
+    var searchResults: [Creature] {
+        if searchText.isEmpty {
+            return creaturesVM.creaturesArray
+        } else {
+            return creaturesVM.creaturesArray.filter {$0.name.capitalized.contains(searchText)}
+        }
+    }
+    
+    
 } // View
 
 struct ContentView_Previews: PreviewProvider {

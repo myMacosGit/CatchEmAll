@@ -38,7 +38,7 @@ class CreaturesViewModel : ObservableObject {
     
     private struct Returned: Codable {
         var count: Int
-        var next: String?  
+        var next: String?
         var results: [Creature]
     }
     @Published var isLoading = false
@@ -50,7 +50,7 @@ class CreaturesViewModel : ObservableObject {
             print("---- New CreaturesViewModel:creaturesArray is \(myNewValue)")
         }
     }
-        
+    
     func getData () async {
         print(" We are accessing the CreaturesViewModel:url \(urlString)")
         isLoading = true
@@ -64,19 +64,19 @@ class CreaturesViewModel : ObservableObject {
         }
         
         do {
-    
+            
             // data, response
             let (data, _) = try await URLSession.shared.data(from: url)
             
             // Try to decode JSON data into our own data structures, ignore error
             /*
-            Parameters
-
-            type
-            The type of the value to decode from the supplied JSON object.
+             Parameters
              
-            data
-            The JSON object to decode.
+             type
+             The type of the value to decode from the supplied JSON object.
+             
+             data
+             The JSON object to decode.
              
              
              SomeClass.self returns SomeClass itself, not an instance of SomeClass
@@ -112,5 +112,20 @@ class CreaturesViewModel : ObservableObject {
         await getData()
         await loadAll() // call loadAll again until next is null
     } // loadAll
+    
+    
+    
+    
+    func loadNextIfNeeded (creature: Creature) async {
+        
+        guard let lastCreature = creaturesArray.last else { return }
+        
+        if creature.id == lastCreature.id && urlString.hasPrefix("http") {
+            Task {
+                //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+                await getData()
+            } // Task
+        } // if
+    } // loadNextIfNeeded
     
 } // CreaturesViewModel

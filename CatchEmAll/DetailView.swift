@@ -49,7 +49,7 @@ struct DetailView: View {
                 } placeholder: {
                     Rectangle()
                         .foregroundColor(.clear)
-                    .frame(width: 96, height: 96)
+                    .frame(width: 96, height: 96)  // make frame overlay
                     .padding(.trailing)
                     
                 }
