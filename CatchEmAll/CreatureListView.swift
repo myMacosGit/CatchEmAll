@@ -7,63 +7,50 @@
 
 import SwiftUI
 
+
+// List all the creatures in a list
+
 struct CreatureListView: View {
     //var creatures = ["Pikachu", "Squirtle"]
     
-
     @StateObject var creaturesVM = CreaturesViewModel()
     @State private var searchText = ""
     
-    
-    {
-        willSet(myNewValue) {
-            print("---- New CreaturesViewModel is \(myNewValue)")
+    // Will update view, computed property, called by search during updates
+    var searchResults: [Creature] {
+        let _ = print("----- CreatureListView: searchResults   \(searchText.isEmpty) ")
+        if searchText.isEmpty {
+            return creaturesVM.creaturesArray   // if no search text, then return all creatures
+        } else {
+            // Search each array element for name that has search text e.g. e.g.snor
+            return creaturesVM.creaturesArray.filter {$0.name.capitalized.contains(searchText)}
         }
     }
     
     var body: some View {
-        //let _ = print ("----- NavigationStack")
+        let _ = print ("----- CreatureListView: NavigationStack \(Thread.current)")
         NavigationStack {
             ZStack {
                 List(searchResults) { creature in
                     LazyVStack {
                         NavigationLink {
                             //let _ = print ("----- call: CreatureDetailViewModel:DetailView = \(index)  ")
-                            DetailView(creature: creature)
+                            DetailView(creature: creature)  // get detail of a creature
+                            //let _ = creature.prt()
                         } // NaigationLink
                     label: {
-                        Text(creature.name.capitalized)
+                        Text(creature.name.capitalized)  // list creatures
                             .font(.title2)
-
+                        
                     } // NaigationLink.label
                     } // LazyVStack
                     .onAppear {
                         
                         Task {
+                            //let _ = print ("----- creaturesVM.loadNextIfNeeded")
                             await creaturesVM.loadNextIfNeeded(creature: creature)
                         }
-//                        // Check if last entry in creatures array is not nil and
-//                        // that the last entry has a valid url
-//                        if let lastCreature =
-//
-//                            /*
-//                             If the collection is empty, the value of this property is nil.
-//                             let numbers = [10, 20, 30, 40, 50]
-//                             if let lastNumber = numbers.last {
-//                                 print(lastNumber)
-//                             }
-//                             // Prints "50"
-//                             */
-//
-//                            creaturesVM.creaturesArray.last {
-//                            if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
-//                                Task {
-//                                    //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
-//                                    await creaturesVM.getData()
-//                                } // Task
-//                            } // if
-//                        } // if
-                  } // onAppear
+                    } // onAppear
                 } // List
                 .listStyle(.plain)
                 .navigationTitle("Pokemon")
@@ -76,38 +63,29 @@ struct CreatureListView: View {
                             }
                         }
                     } // toolbaritem
-
+                    
                     ToolbarItem(placement: .status) {
                         Text ("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) creatures")
                     } // toolbaritem
                 } // toolbar
-
-                .searchable(text: $searchText)
+                
+                //    .searchable(text: $searchText)  // search text box and cancel
+                .searchable(text: $searchText, prompt: "search for a Pokemon")
                 
                 if creaturesVM.isLoading {
                     ProgressView()
                         .tint(.red)
                         .scaleEffect(4)
                 }
-
+                
             }  // ZStack
         } // NavigationStack
         
         .task {
-            //let _ = print("CreatureListView:task 1")
+            let _ = print("---- CreatureListView: call creaturesVM.getData")
             await creaturesVM.getData()
-            //let _ = print("CreatureListView:task 2")
         } // task
     } // body
-    
-    var searchResults: [Creature] {
-        if searchText.isEmpty {
-            return creaturesVM.creaturesArray
-        } else {
-            return creaturesVM.creaturesArray.filter {$0.name.capitalized.contains(searchText)}
-        }
-    }
-    
     
 } // View
 

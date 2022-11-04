@@ -9,13 +9,6 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject var creatureDetailVM = CreatureDetailViewModel()
-    {
-        willSet(myNewValue) {
-            print("---- New creatureDetailVM is \(myNewValue)")
-        }
-    }
-
-
     
     var creature: Creature
     
@@ -33,38 +26,7 @@ struct DetailView: View {
                 .padding(.bottom)
             
             HStack {
-                AsyncImage(url: URL(string: creatureDetailVM.imageURL)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .background(.white)
-                        .frame(width: 96, height: 96)
-                        .cornerRadius(16)
-                        .shadow(radius:8, x:5, y:5)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(.gray.opacity(0.5), lineWidth: 1)
-                        }
-                        .padding(.trailing)
-                } placeholder: {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                    .frame(width: 96, height: 96)  // make frame overlay
-                    .padding(.trailing)
-                    
-                }
-                //                Image(systemName: "figure.run.circle")
-                //                    .resizable()
-                //                    .scaledToFit()
-                //                    .backgroundStyle(.white)
-                //                    .frame(maxHeight: 96)
-                //                 //   .cornerRadius(16)
-                //                 //   .shadow(radius:8, x:5, y:5)
-                //                    .overlay {
-                //                        RoundedRectangle(cornerRadius: 16)
-                //                            .stroke(.gray.opacity(0.5), lineWidth: 1)
-                //                    }
-                //                    .padding(.trailing)
+                creatureImage
                 
                 VStack (alignment: .leading) {
                     HStack (alignment: .top) {
@@ -97,17 +59,58 @@ struct DetailView: View {
         } // VStack
         .padding()
         .task  {
-            let _ = print("creatureDetailVM:task 1")
-
-            let _ = print ("---- creatureDetailVM  url \(creature.url)")
-
+            let _ = print("---- DetailView:creatureDetailVM.getData()")
+            
+            //let _ = print ("---- creatureDetailVM  url \(creature.url)")
+            
             creatureDetailVM.urlString = creature.url
             await creatureDetailVM.getData()
-            let _ = print("creatureDetailVM:task 2")
+            //let _ = print("creatureDetailVM:task 2")
         }
         
     } // body
 } // DetailView
+
+extension DetailView {
+    var creatureImage: some View {
+        
+        AsyncImage(url: URL(string: creatureDetailVM.imageURL)) { phase in
+            
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .background(.white)
+                    .frame(width: 96, height: 96)
+                    .cornerRadius(16)
+                    .shadow(radius:8, x:5, y:5)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(.gray.opacity(0.5), lineWidth: 1)
+                    }
+                    .padding(.trailing)
+            } else if phase.error != nil {
+                Image(systemName: "questionmark.square.dashed")
+                    .resizable()
+                    .scaledToFit()
+                    .background(.white)
+                    .frame(width: 96, height: 96)
+                    .cornerRadius(16)
+                    .shadow(radius:8, x:5, y:5)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(.gray.opacity(0.5), lineWidth: 1)
+                    }
+                    .padding(.trailing)
+            } else {
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .frame(width: 96, height: 96)  // make frame overlay
+                    .padding(.trailing)
+            } // if let
+        } // AsyncImage
+    } // creatureImage
+} // extension
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {

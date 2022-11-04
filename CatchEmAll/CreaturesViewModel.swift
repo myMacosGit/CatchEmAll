@@ -30,7 +30,6 @@
  
  */
 
-
 import Foundation
 
 @MainActor
@@ -45,14 +44,14 @@ class CreaturesViewModel : ObservableObject {
     @Published var urlString = "https://pokeapi.co/api/v2/pokemon/"
     @Published var count = 0
     @Published var creaturesArray: [Creature] = []
-    {
-        willSet(myNewValue) {
-            print("---- New CreaturesViewModel:creaturesArray is \(myNewValue)")
-        }
-    }
+    //{
+    //    willSet(myNewValue) {
+    //        print("---- New CreaturesViewModel:creaturesArray is \(myNewValue)")
+    //    }
+    //}
     
     func getData () async {
-        print(" We are accessing the CreaturesViewModel:url \(urlString)")
+        print("----- CreaturesViewModel: accessing CreaturesViewModel:url \(urlString)  ")
         isLoading = true
         
         // Create a URL
@@ -78,7 +77,6 @@ class CreaturesViewModel : ObservableObject {
              data
              The JSON object to decode.
              
-             
              SomeClass.self returns SomeClass itself, not an instance of SomeClass
              
              */
@@ -98,6 +96,8 @@ class CreaturesViewModel : ObservableObject {
             self.creaturesArray = self.creaturesArray + returned.results
             isLoading = false
             
+            print ("----- CreaturesViewModel: exit getData")
+            
         } catch {
             print ("ERROR: Could not use URL at \(urlString) to get data and response")
             isLoading = false
@@ -109,12 +109,14 @@ class CreaturesViewModel : ObservableObject {
     // About 57 calls
     func loadAll() async {
         guard urlString.hasPrefix("http") else { return }
+
+        let _ = print("----- CreaturesViewModel: loadAll")
         await getData()
         await loadAll() // call loadAll again until next is null
+
+        let _ = print("----- CreaturesViewModel: exit loadAll")
+
     } // loadAll
-    
-    
-    
     
     func loadNextIfNeeded (creature: Creature) async {
         
@@ -122,10 +124,34 @@ class CreaturesViewModel : ObservableObject {
         
         if creature.id == lastCreature.id && urlString.hasPrefix("http") {
             Task {
-                //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+                let _ = print("----- CreaturesViewModel: loadNextIfNeeded: getData  \(lastCreature.name)")
                 await getData()
             } // Task
         } // if
     } // loadNextIfNeeded
+    
+    //                        // Check if last entry in creatures array is not nil and
+    //                        // that the last entry has a valid url
+    //                        if let lastCreature =
+    //
+    //                            /*
+    //                             If the collection is empty, the value of this property is nil.
+    //                             let numbers = [10, 20, 30, 40, 50]
+    //                             if let lastNumber = numbers.last {
+    //                                 print(lastNumber)
+    //                             }
+    //                             // Prints "50"
+    //                             */
+    //
+    //                            creaturesVM.creaturesArray.last {
+    //                            if creaturesVM.creaturesArray[index].name == lastCreature.name && creaturesVM.urlString.hasPrefix("http") {
+    //                                Task {
+    //                                    //let _ = print("----- found http  \(lastCreature.name)  \(index)  ")
+    //                                    await creaturesVM.getData()
+    //                                } // Task
+    //                            } // if
+    //
+    
+    
     
 } // CreaturesViewModel

@@ -7,17 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0A233F8F-D67C-4E55-9251-1FF809BADBA8"
-            shouldBeEnabled = "No"
+            uuid = "A5BEE5A5-B886-4FE9-92A1-305CAF2D83CB"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CatchEmAll/DetailView.swift"
+            filePath = "CatchEmAll/CreaturesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "loadNextIfNeeded(creature:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A5BEE5A5-B886-4FE9-92A1-305CAF2D83CB - 111e413dd3b409f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in CatchEmAll.CreaturesViewModel.loadNextIfNeeded(creature: CatchEmAll.Creature) async -&gt; ()"
+                  moduleName = "CatchEmAll"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/richardisaacs/Library/Mobile%20Documents/com~apple~CloudDocs/CatchEmAll/CatchEmAll/CreaturesViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "528">
+               </Location>
+               <Location
+                  uuid = "A5BEE5A5-B886-4FE9-92A1-305CAF2D83CB - cfc8848c80c9df27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async -&gt; () in CatchEmAll.CreaturesViewModel.loadNextIfNeeded(creature: CatchEmAll.Creature) async -&gt; ()"
+                  moduleName = "CatchEmAll"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/richardisaacs/Library/Mobile%20Documents/com~apple~CloudDocs/CatchEmAll/CatchEmAll/CreaturesViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "34">
+               </Location>
+               <Location
+                  uuid = "A5BEE5A5-B886-4FE9-92A1-305CAF2D83CB - 825320b8535747f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in CatchEmAll.CreaturesViewModel.loadNextIfNeeded(creature: CatchEmAll.Creature) async -&gt; ()"
+                  moduleName = "CatchEmAll"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/richardisaacs/Library/Mobile%20Documents/com~apple~CloudDocs/CatchEmAll/CatchEmAll/CreaturesViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "50">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
