@@ -104,7 +104,15 @@ class CreatureDetailViewModel : ObservableObject {
             
             self.height = returned.height ?? 0.0
             self.weight = returned.weight ?? 0.0
-            //self.imageURL = returned.sprites.front_default ?? ""
+            //self.imageURL = returned.sprites.front_default ?? "" // a valid URL for current directory
+            
+            /*
+             url = 'n/a causes error'
+             CatchEmAll Task finished with error [-1002]
+             Error Domain=NSURLErrorDomain Code=-1002 "unsupported URL"
+             */
+
+
             self.imageURL = returned.sprites.other.officialArtwork.front_default ?? "n/a"
             
             print ("----- exit CreatureDetailViewModel:getData")

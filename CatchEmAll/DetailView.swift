@@ -76,7 +76,8 @@ extension DetailView {
         
         AsyncImage(url: URL(string: creatureDetailVM.imageURL)) { phase in
             
-            if let image = phase.image {
+            if let image = phase.image { // valid image
+                let _ = print ("===== valid image")
                 image
                     .resizable()
                     .scaledToFit()
@@ -89,7 +90,10 @@ extension DetailView {
                             .stroke(.gray.opacity(0.5), lineWidth: 1)
                     }
                     .padding(.trailing)
-            } else if phase.error != nil {
+                
+            } else if phase.error != nil { // image not found, invalud url
+                let _ = print ("===== INvalid image")
+
                 Image(systemName: "questionmark.square.dashed")
                     .resizable()
                     .scaledToFit()
@@ -102,7 +106,10 @@ extension DetailView {
                             .stroke(.gray.opacity(0.5), lineWidth: 1)
                     }
                     .padding(.trailing)
-            } else {
+
+            } else { // display placeholder while image loads
+                let _ = print ("===== placeholder")
+
                 Rectangle()
                     .foregroundColor(.clear)
                     .frame(width: 96, height: 96)  // make frame overlay
